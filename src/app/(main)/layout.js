@@ -9,7 +9,10 @@ import { GoogleTagManager } from "@next/third-parties/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Recipes Cool",
+  title: {
+    default: "Recipes Cool",
+    template: "%s | Recipes Cool",
+  },
   description: "Genuinely cool recipes for you to try out",
 };
 
