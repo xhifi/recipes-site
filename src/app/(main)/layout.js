@@ -19,10 +19,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <meta name="google-site-verification" content="xR01zTwqZhEr6D-GzkAQBjh4iCIgg736ew9IWytGYCg" />
-      </Head>
       <GoogleTagManager gtmId="G-LQXQ4DSWHP" />
+
       <body className={inter.className}>
         <Navigation />
         {children}

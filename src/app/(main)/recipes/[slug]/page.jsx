@@ -1,12 +1,15 @@
 import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
-
-import { fetchRecipes } from "../../page";
+import EditIcon from "@/static/icons/edit.svg";
 import SereneMountain from "@/static/images/serene_mountain.jpg";
+import fetchRecipes from "@/actions/fetchRecipes";
+import { notFound } from "next/navigation";
+import Link from "@/components/primitives/Link";
 
 export async function generateMetadata({ params }) {
-  const recipes = await fetchRecipes();
-  const recipe = recipes.find((recipe) => params.id === recipe.id.toString());
+  const { data, status } = await fetchRecipes();
+
+  const recipe = data.find((recipe) => params.slug === recipe.slug);
 
   return {
     title: recipe.name,
@@ -16,8 +19,15 @@ export async function generateMetadata({ params }) {
 }
 
 const Page = async ({ params }) => {
-  const recipes = await fetchRecipes();
-  const recipe = recipes.find((recipe) => params.id === recipe.id.toString());
+  const { data, status } = await fetchRecipes();
+
+  if (status !== 200) {
+    throw new Error("Failed to fetch recipes");
+  }
+
+  const recipe = data.find((recipe) => params.slug === recipe.slug);
+
+  if (!recipe) notFound();
 
   return (
     <main className="">
@@ -30,7 +40,12 @@ const Page = async ({ params }) => {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <div className="absolute bottom-0 left-0 p-4 md:p-8 lg:p-14">
-          <h1 className="font-bold text-3xl bg-primary text-white px-6 py-2 rounded-full">{recipe.name}</h1>
+          <h1 className="font-bold text-3xl bg-primary text-white px-6 py-2 rounded-full">
+            {recipe.name}{" "}
+            <Link className="text-sm ms-4" href={`/recipes/${recipe.slug}/edit`}>
+              <Image src={EditIcon} alt="" className="h-5 w-5" />
+            </Link>
+          </h1>
         </div>
       </div>
       <div className="flex flex-col p-4 md:p-8 lg:p-14 lg:flex-row lg:gap-x-5 gap-y-5 justify-between">
@@ -51,7 +66,9 @@ const Page = async ({ params }) => {
 
         <article className="w-full lg:py-4">
           <h2 className="font-bold text-2xl mb-3">Instructions</h2>
-          <MDXRemote source={recipe.instructions} />
+          <div className="prose w-full min-w-full">
+            <MDXRemote source={recipe.instructions} />
+          </div>
         </article>
       </div>
     </main>
