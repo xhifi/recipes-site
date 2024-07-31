@@ -15,7 +15,7 @@ const KeyValue = ({ id, slug }) => {
       setIngredients(r);
     };
     g();
-  }, []);
+  }, [id]);
 
   console.log(ingredients);
 
