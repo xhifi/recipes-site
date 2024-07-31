@@ -85,7 +85,7 @@ const EditIngredients = ({ ingredients, recipeId, slug }) => {
         </thead>
         <tbody>
           {allIngredients.map((ingredient, i) => {
-            if (ingredient.ingredient_name === null) return;
+            if (ingredient === "null" || ingredient === null || ingredient?.ingredient_name === null) return;
             return (
               <tr key={ingredient.ingredient_id}>
                 <td>
