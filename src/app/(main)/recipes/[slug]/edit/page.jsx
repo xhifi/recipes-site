@@ -1,13 +1,12 @@
-import fetchRecipes from "@/actions/fetchRecipes";
-import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 
 import pool from "@/utils/pg";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGFM from "remark-gfm";
 import { revalidatePath } from "next/cache";
-import KeyValue from "@/components/forms/KeyValue";
 import getRecipe from "@/actions/getRecipe";
+import EditIngredients from "@/components/forms/EditIngredients";
+import getRecipeIngredients from "@/actions/getRecipeIngredients";
 const DynamicEditor = dynamic(() => import("@/components/editor/MDXEditor"), { ssr: false });
 
 const handleSave = async (id, content) => {
@@ -21,6 +20,7 @@ const handleSave = async (id, content) => {
 const Page = async ({ params }) => {
   const recipe = await getRecipe(params.slug);
 
+  const ingredients = await getRecipeIngredients(recipe.id);
   return (
     <>
       <div className="flex flex-nowrap">
@@ -44,7 +44,8 @@ const Page = async ({ params }) => {
       </div>
       <div className="flex gap-x-14">
         <div className="px-14 w-1/2">
-          <KeyValue id={recipe.id} slug={recipe.slug} />
+          {/* <KeyValue id={recipe.id} slug={recipe.slug} /> */}
+          <EditIngredients ingredients={ingredients} recipeId={recipe.id} slug={recipe.slug} />
         </div>
       </div>
     </>
