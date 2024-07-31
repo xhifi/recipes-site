@@ -9,7 +9,7 @@ const fetchRecipes = cache(async () => {
     const data = await pool.query(`SELECT * FROM recipe_with_ingredients;`);
 
     if (data.rowCount === 0) return null;
-    return data.rows;
+    return structuredClone(data.rows);
   } catch (error) {
     return error.message;
   }
