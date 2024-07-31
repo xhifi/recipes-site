@@ -89,23 +89,13 @@ const EditIngredients = ({ ingredients, recipeId, slug }) => {
             return (
               <tr key={ingredient.ingredient_id}>
                 <td>
-                  <Input
-                    key={ingredient?.ingredient_id}
-                    name="name"
-                    value={ingredient?.ingredient_name}
-                    onChange={(e) => handleChange("ingredient_name", i, e)}
-                  />
+                  <Input name="name" value={ingredient?.ingredient_name} onChange={(e) => handleChange("ingredient_name", i, e)} />
                 </td>
                 <td>
-                  <Input
-                    key={ingredient.ingredient_id}
-                    name="quantity"
-                    value={ingredient?.quantity}
-                    onChange={(e) => handleChange("quantity", i, e)}
-                  />
+                  <Input name="quantity" value={ingredient?.quantity} onChange={(e) => handleChange("quantity", i, e)} />
                 </td>
                 <td>
-                  <Input key={ingredient.ingredient_id} name="unit" value={ingredient?.unit} onChange={(e) => handleChange("unit", i, e)} />
+                  <Input name="unit" value={ingredient?.unit} onChange={(e) => handleChange("unit", i, e)} />
                 </td>
                 <td>
                   <button className={buttonClass} onClick={() => handleDelete(ingredient?.ingredient_id, i)}>

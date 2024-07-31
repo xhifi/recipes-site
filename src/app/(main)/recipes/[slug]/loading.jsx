@@ -5,7 +5,7 @@ export default function Loading() {
   // You can add any UI inside Loading, including a Skeleton.
   return (
     <div className="flex items-center justify-center min-h-64">
-      <Image src={LogoSprite} className="animate-spin" />
+      <Image src={LogoSprite} alt="Logo Sprite" className="animate-spin" />
     </div>
   );
 }
