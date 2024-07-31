@@ -9,9 +9,9 @@ const fetchRecipes = cache(async () => {
     const data = await pool.query(`SELECT * FROM recipe_with_ingredients;`);
 
     if (data.rowCount === 0) return null;
-    return { data: data.rows, status: 200 };
+    return data.rows;
   } catch (error) {
-    return { data: null, error: error.message };
+    return error.message;
   }
 });
 

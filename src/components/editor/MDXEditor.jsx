@@ -21,7 +21,6 @@ import {
   AdmonitionDirectiveDescriptor,
   diffSourcePlugin,
 } from "@mdxeditor/editor";
-import "@mdxeditor/editor/style.css";
 
 const Editor = ({ markdown, editorRef, handleSave, id }) => {
   return (

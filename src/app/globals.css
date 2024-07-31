@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* import "@mdxeditor/editor/style.css"; */
+
+@import url("../../node_modules/@mdxeditor/editor/dist/style.css");
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

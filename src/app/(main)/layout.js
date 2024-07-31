@@ -19,7 +19,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="G-LQXQ4DSWHP" />
+      {/* <GoogleTagManager gtmId="G-LQXQ4DSWHP" /> */}
 
       <body className={inter.className}>
         <Navigation />

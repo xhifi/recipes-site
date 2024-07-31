@@ -5,12 +5,11 @@ import SereneMountain from "@/static/images/serene_mountain.jpg";
 import fetchRecipes from "@/actions/fetchRecipes";
 import { notFound } from "next/navigation";
 import Link from "@/components/primitives/Link";
+import getRecipe from "@/actions/getRecipe";
 
 export async function generateMetadata({ params }) {
-  const { data, status } = await fetchRecipes();
-
-  const recipe = data.find((recipe) => params.slug === recipe.slug);
-
+  const recipe = await getRecipe(params.slug);
+  console.log(recipe);
   return {
     title: recipe.name,
     description: recipe.description,
@@ -19,13 +18,7 @@ export async function generateMetadata({ params }) {
 }
 
 const Page = async ({ params }) => {
-  const { data, status } = await fetchRecipes();
-
-  if (status !== 200) {
-    throw new Error("Failed to fetch recipes");
-  }
-
-  const recipe = data.find((recipe) => params.slug === recipe.slug);
+  const recipe = await getRecipe(params.slug);
 
   if (!recipe) notFound();
 
